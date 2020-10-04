@@ -9,7 +9,7 @@ export const fetchData = async () => {
         "headers":{
         "content-type":"application/octet-stream",
         "x-rapidapi-host":"corona-virus-world-and-india-data.p.rapidapi.com",
-        "x-rapidapi-key":"API Key Here",
+        "x-rapidapi-key":process.env.API_Secret,
         "useQueryString":true
       }
     });
