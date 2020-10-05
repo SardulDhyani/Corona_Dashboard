@@ -1,5 +1,7 @@
 .container{
+  padding-top: 20px;
   display: flex;
   justify-content: center;
-  width: 85%;
+  width: 90%;
+  flex-direction: column;
 }

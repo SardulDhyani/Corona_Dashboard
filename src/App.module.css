@@ -17,3 +17,18 @@ body{
   /* height: 149px; */
   margin-top: 30px;
 }
+
+.footer{
+  background-color: rgba(82, 82, 82, 0.2);
+  margin-top: 20px;
+  padding: 5px;
+  border-top: 3px solid #a6d4fa;
+  border-radius: 0px 60px 0px 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.footer span{
+  font-family: Arial, Helvetica, sans-serif;
+  color: #E1E7F3;
+}

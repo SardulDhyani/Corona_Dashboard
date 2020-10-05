@@ -8,14 +8,14 @@ class Country extends Component {
   render(){
     return(
       <FormControl className={styles.formControl}>
-       <NativeSelect>
-         <option value="global">Global</option>
-         { this.props.country_names.map( (c, i) => <option key={i} value={c}>{c}</option>) }
+       <NativeSelect defaultValue="" onChange={ (e) => { this.props.handleCountryChange(e.target.value) } }>
+         <option value="global">Select Country</option>
+         { this.props.country_names.map( (c, i) => <option key={i} value={i}>{c}</option>) }
        </NativeSelect>
      </FormControl>
     );
   };
-  
+
 }
 
 export default Country;
