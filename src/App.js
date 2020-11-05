@@ -6,56 +6,53 @@ import LinkedIn from '@material-ui/icons/LinkedIn';
 import Cards from './components/Cards/Cards';
 import Country from './components/Country/Country';
 import Chart  from './components/Chart/Chart';
+import logo from './covid-preloader.png';
 
 import styles from './App.module.css';
 
-import { fetchData, fetchCountryData } from './api';
+import { fetchData } from './api';
 
 import coronaImage from './images/covid.png';
 
 class App extends Component {
 
   state = {
-    total_cases : '',
-    total_deaths : '',
-    total_recovered : '',
-    statistic_taken_at : '',
+    isLoading : true,
+    index : 0,
     countries_names : [],
-    country : {}
+    countries_stat : [],
+    statistic_taken_at : ''
   }
   
-  handleCountryChange = async ( index ) => {
-    if(index === 'global'){
-      return null;
-    } else{
-      const country_data = await fetchCountryData(index);
-      this.setState({country : country_data});
-    }
+  handleCountryChange = ( index ) => {
+    this.setState({index : index});
   }
 
   componentDidMount(){
     fetchData()
-    .then( ({ countries_stat, world_total }) => {
-      const country_names = countries_stat.map( c => c.country_name );
-
-      const globalData = {
-        country_name : 'Global',
+    .then( ({ countries_stat, world_total, statistic_taken_at }) => {
+      const world_data = {
+        country_name : 'World',
         cases : parseInt(world_total.total_cases.replace(/,/g, '')),
         deaths : parseInt(world_total.total_deaths.replace(/,/g, '')),
         total_recovered : parseInt(world_total.total_recovered.replace(/,/g, ''))
       };
 
-      this.setState({ 
-        total_cases : parseInt(world_total.total_cases.replace(/,/g, '')), 
-        total_deaths : parseInt(world_total.total_deaths.replace(/,/g, '')), 
-        total_recovered : parseInt(world_total.total_recovered.replace(/,/g, '')), 
-        statistic_taken_at : world_total.statistic_taken_at,
-        country_data : globalData
-      });
+      const countries_data = countries_stat.map( data => {
+        return {
+          country_name : data.country_name,
+          cases : parseInt(data.cases.replace(/,/g, '')),
+          deaths : parseInt(data.deaths.replace(/,/g, '')),
+          total_recovered : parseInt(data.total_recovered.replace(/,/g, ''))
+        }
+      } );
 
-      this.setState(prevState => ({
-        countries_names: country_names
-      }));
+      countries_data.unshift(world_data);
+
+      const countries_names = countries_data.map( data => data.country_name);
+
+      this.setState({countries_stat : countries_data, statistic_taken_at : statistic_taken_at, isLoading : false, countries_names : countries_names })
+      
     })
     .catch(err=>{
       console.log(err);
@@ -65,17 +62,18 @@ class App extends Component {
 
   render(){
     const theme = createMuiTheme({palette: {type: 'dark'} });
-
-
-    console.log(this.state.country);
-
     return(
+      this.state.isLoading ?
+      <div className={styles.preloader}>
+          <img src={logo} className={styles.App_logo} alt="logo" />
+      </div> 
+      : 
       <div className={styles.container}>
         <ThemeProvider theme={theme}>
           <img className={styles.covidImage}  src={coronaImage} alt="COVID-19 Dashboard" />
-          <Cards  cases={this.state.total_cases} deaths={this.state.total_deaths} recovered={this.state.total_recovered} lastUpdated={this.state.statistic_taken_at}/>
+          <Cards  cases={this.state.countries_stat[this.state.index].cases} deaths={this.state.countries_stat[this.state.index].deaths} recovered={this.state.countries_stat[this.state.index].total_recovered} lastUpdated={this.state.statistic_taken_at}/>
           <Country country_names={this.state.countries_names} handleCountryChange = {this.handleCountryChange} />
-          <Chart cases={this.state.total_cases} deaths={this.state.total_deaths} recoveries={this.state.total_recovered} countryData={this.state.country} />
+          <Chart countryData={this.state.countries_stat[this.state.index]} />
           
         </ThemeProvider>
           <div className={styles.footer}>

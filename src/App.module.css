@@ -3,6 +3,16 @@ body{
   align-items: center;
 }
 
+.preloader{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: -webkit-translate(-50%, -50%);
+  transform: -moz-translate(-50%, -50%);
+  transform: -ms-translate(-50%, -50%);
+}
+
 .container {
   background-color: rgba(82, 82, 82, 0.2);
   display:  flex;
@@ -31,4 +41,28 @@ body{
 .footer span{
   font-family: Arial, Helvetica, sans-serif;
   color: #E1E7F3;
+}
+
+.App {
+  text-align: center;
+}
+
+.App_logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App_logo {
+    animation: App_logo_spin infinite 20s linear;
+  }
+}
+
+@keyframes App_logo_spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -9,7 +9,6 @@ class Country extends Component {
     return(
       <FormControl className={styles.formControl}>
        <NativeSelect defaultValue="" onChange={ (e) => { this.props.handleCountryChange(e.target.value) } }>
-         <option value="global">Select Country</option>
          { this.props.country_names.map( (c, i) => <option key={i} value={i}>{c}</option>) }
        </NativeSelect>
      </FormControl>

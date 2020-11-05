@@ -1,7 +1,19 @@
-.container{
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
-  width: 90%;
-  flex-direction: column;
+@media (max-width : 900px){
+  .container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    flex-direction: column;
+  }
+}
+
+@media (min-width : 1000px){
+  .container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    flex-direction: column;
+  }
 }
