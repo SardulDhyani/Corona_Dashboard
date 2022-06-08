@@ -77,17 +77,6 @@ class App extends Component {
           
         </ThemeProvider>
           <div className={styles.footer}>
-            <a href="https://sarduldhyani.me/" target="_blank">
-              <span className={styles.name}>Sardul Dhyani</span>
-            </a>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <a href="https://github.com/SardulDhyani/" target="_blank">
-              <span><GitHubIcon fontSize="small" color="inherit" /></span>
-            </a>
-            <span>&nbsp;&nbsp;</span>
-            <a href="https://in.linkedin.com/in/sarduldhyani" target="_blank">
-              <span><LinkedIn fontSize="small" color="inherit" /> </span>
-            </a>
           </div>
       </div>
     )
